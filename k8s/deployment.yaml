@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oms5
+  namespace: oms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms5
+  template:
+    metadata:
+      labels:
+        app: oms5
+    spec:
+      containers:
+        - name: oms5
+          image: oms5:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: oms5-config
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20

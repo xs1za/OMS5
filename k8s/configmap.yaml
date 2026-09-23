@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oms5-config
+  namespace: oms
+data:
+  SERVICE_NAME: OMS5
+  ROOT_PATH: /oms5
+  KAFKA_BOOTSTRAP_SERVERS: kafka.oms.svc.cluster.local:9092
