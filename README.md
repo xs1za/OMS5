@@ -175,14 +175,6 @@ http://localhost:8088
 http://oms.local/oms5/docs
 ```
 
-Браузером можно открыть `GET /health` и `GET /operations/summary`; создание клиента нужно вызывать как `POST` из Swagger UI, Postman или `curl`:
-
-```text
-GET  http://oms.local/oms5/health
-POST http://oms.local/oms5/clients
-GET  http://oms.local/oms5/operations/summary
-```
-
 ## Docker
 
 ```bash
@@ -195,15 +187,14 @@ docker run --rm -p 8005:8000 oms5:latest
 ```bash
 kubectl apply -f ../platform/k8s/namespace.yaml
 kubectl apply -f k8s/
+kubectl -n oms port-forward svc/oms5 8005:80
 ```
 
-При установленном Ingress из `platform/k8s/ingress.yaml` встроенный Swagger UI OMS5 доступен без port-forward:
+После port-forward встроенный Swagger UI OMS5 доступен по адресу:
 
 ```text
-http://oms.local/oms5/docs
+http://localhost:8005/docs
 ```
-
-Если Ingress недоступен, для отладки можно использовать `kubectl -n oms port-forward svc/oms5 8005:80` и открыть `http://localhost:8005/docs`.
 
 ## Важно для production
 
