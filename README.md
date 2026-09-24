@@ -195,14 +195,15 @@ docker run --rm -p 8005:8000 oms5:latest
 ```bash
 kubectl apply -f ../platform/k8s/namespace.yaml
 kubectl apply -f k8s/
-kubectl -n oms port-forward svc/oms5 8005:80
 ```
 
-После port-forward встроенный Swagger UI OMS5 доступен по адресу:
+При установленном Ingress из `platform/k8s/ingress.yaml` встроенный Swagger UI OMS5 доступен без port-forward:
 
 ```text
-http://localhost:8005/docs
+http://oms.local/oms5/docs
 ```
+
+Если Ingress недоступен, для отладки можно использовать `kubectl -n oms port-forward svc/oms5 8005:80` и открыть `http://localhost:8005/docs`.
 
 ## Важно для production
 
